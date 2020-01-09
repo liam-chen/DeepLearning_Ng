@@ -1,6 +1,8 @@
 import h5py
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import math
 
 def load_dataset():
@@ -62,11 +64,11 @@ def random_mini_batches(X, Y, mini_batch_size = 64, seed = 0):
 
 def convert_to_one_hot(Y, C):
     Y = np.eye(C)[Y.reshape(-1)].T
+    Y = Y.astype('float32')
     return Y
 
 
 def predict(X, parameters):
-    
     W1 = tf.convert_to_tensor(parameters["W1"])
     b1 = tf.convert_to_tensor(parameters["b1"])
     W2 = tf.convert_to_tensor(parameters["W2"])
